@@ -19,7 +19,8 @@
 	    margin-bottom: 15px;
 	}
 	.contact-form form p input[type=email] {
-	    margin-left: 8px;
+		/* ms */
+	    margin-left: 0px;
 	}
 	.contact-form-box h4 i {
 	    left: -20%;

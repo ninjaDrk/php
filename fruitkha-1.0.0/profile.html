@@ -7,7 +7,7 @@
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
-	<title>Cart</title>
+	<title>Contact</title>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
@@ -30,6 +30,10 @@
 	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- responsive -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
+
+    <!-- proflie-->
+	<link rel="stylesheet" href="assets/css/‏‏profile.css">
+
 
 </head>
 <body>
@@ -88,7 +92,7 @@
 										<li><a href="shop.html">Shop</a></li>
 										<li><a href="checkout.html">Check Out</a></li>
 									<li><a href="single-product.html">Single Product</a></li>
-										<li class="current-list-item"><a href="cart.html">Cart</a></li>
+										<li><a href="cart.html">Cart</a></li>
 									</ul>
 								</li>
 								<li><a href="cart.html">Cart</a></li>
@@ -136,8 +140,16 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>Fresh and Organic</p>
-						<h1>Cart</h1>
+						<!-- ms name  -->
+						<h1>welcome</h1>
+							<i class="fa-solid fa-pen-to-square"></i>
+						
+						<img class="img-profile" src="./assets/img/breadcrumb-bg.jpg" alt="" >
+						<form action="" method="post" >
+							<i class="fa-regular fa-pen-to-square"></i>
+						  <input type="file" name="file" id="file">
+					       </form>
+						<p>name</p>
 					</div>
 				</div>
 			</div>
@@ -145,125 +157,61 @@
 	</div>
 	<!-- end breadcrumb section -->
 
-	<!-- cart -->
-	<div class="cart-section mt-150 mb-150">
+	<!-- contact form -->
+	<div class="contact-from-section">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-md-12">
-					<div class="cart-table-wrap">
-						<table class="cart-table">
-							<thead class="cart-table-head">
-								<tr class="table-head-row">
-									<th class="product-remove"></th>
-									<th class="product-image">Product Image</th>
-									<th class="product-name">Name</th>
-									<th class="product-price">Price</th>
-									<th class="product-quantity">Quantity</th>
-									<th class="product-total">Total</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-1.jpg" alt=""></td>
-									<td class="product-name">Strawberry</td>
-									<td class="product-price">$85</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-2.jpg" alt=""></td>
-									<td class="product-name">Berry</td>
-									<td class="product-price">$70</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-3.jpg" alt=""></td>
-									<td class="product-name">Lemon</td>
-									<td class="product-price">$35</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-							</tbody>
-						</table>
+			<div class="row-profile">
+				<div class="col-lg-8 mb-5 mb-lg-0">
+					<div class="form-title">
+						<h2>profile</h2>
+						<p></p>
 					</div>
+				 	<div id="form_status"></div>
+					<div class="contact-form">
+
+						<form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+							<p>
+								 <input type="text" placeholder="Name" name="name" id="name"><br><br>
+							
+								<input type="email" placeholder="email" name="email" id="email">
+							</p>
+							<p>
+								<input type="tel" placeholder="Phone" name="phone" id="phone"><br><br>
+								<input type="text" placeholder="city" name="city" id="city"><br><br>
+								<input type="text" placeholder="Street" name="street" id="street"><br><br>	
+								<input type="text" placeholder="Address" name="address" id="address">
+								
+							</p>
+							<input type="hidden" name="token" value="FsWga4&@f6aw" />
+						</form>
+					</div>
+					<p><input type="submit" value="Save" id="save"></p>
+
 				</div>
 
-				<div class="col-lg-4">
-					<div class="total-section">
-						<table class="total-table">
-							<thead class="total-table-head">
-								<tr class="table-total-row">
-									<th>Total</th>
-									<th>Price</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="total-data">
-									<td><strong>Subtotal: </strong></td>
-									<td>$500</td>
-								</tr>
-								<tr class="total-data">
-									<td><strong>Shipping: </strong></td>
-									<td>$45</td>
-								</tr>
-								<tr class="total-data">
-									<td><strong>Total: </strong></td>
-									<td>$545</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="cart-buttons">
-							<a href="cart.html" class="boxed-btn">Update Cart</a>
-							<a href="checkout.html" class="boxed-btn black">Check Out</a>
+				<!-- ms -->
+				<!-- <div class="col-lg-4">
+					<div class="contact-form-wrap">
+						<div class="contact-form-box">
+							<h4><i class="fas fa-map"></i> Shop Address</h4>
+							<p>34/8, East Hukupara <br> Gifirtok, Sadan. <br> Country Name</p>
+						</div>
+						<div class="contact-form-box">
+							<h4><i class="far fa-clock"></i> Shop Hours</h4>
+							<p>MON - FRIDAY: 8 to 9 PM <br> SAT - SUN: 10 to 8 PM </p>
+						</div>
+						<div class="contact-form-box">
+							<h4><i class="fas fa-address-book"></i> Contact</h4>
+							<p>Phone: +00 111 222 3333 <br> Email: support@fruitkha.com</p>
 						</div>
 					</div>
+				</div> -->
 
-					<div class="coupon-section">
-						<h3>Apply Coupon</h3>
-						<div class="coupon-form-wrap">
-							<form action="index.html">
-								<p><input type="text" placeholder="Coupon"></p>
-								<p><input type="submit" value="Apply"></p>
-							</form>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end cart -->
+	<!-- end contact form -->
 
-	<!-- logo carousel -->
-	<div class="logo-carousel-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="logo-carousel-inner">
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/1.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/2.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/3.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/4.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/5.png" alt="">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end logo carousel -->
 
 	<!-- footer -->
 	<div class="footer-area">
@@ -355,8 +303,10 @@
 	<script src="assets/js/jquery.meanmenu.min.js"></script>
 	<!-- sticker js -->
 	<script src="assets/js/sticker.js"></script>
+	<!-- form validation js -->
+	<script src="assets/js/form-validate.js"></script>
 	<!-- main js -->
 	<script src="assets/js/main.js"></script>
-
+	
 </body>
 </html>
