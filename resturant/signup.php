@@ -1,3 +1,5 @@
+<?php require_once("connection/config.php")?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -145,6 +147,86 @@ button{
     text-decoration: none;
 }
 
+.error{
+    color:red;
+    margin-left:100px;
+}
+
+
+<?php 
+//////////////////////////////////////// لاستقبال البيانات
+
+  if(isset($_POST['submit'])):
+
+   if(isset($_POST['name'])):
+
+      if(empty($_POST['name']))
+        $error['user']="enter user name ";
+      else
+    $user_name=$_POST['name'];
+   
+   endif;
+
+   if(isset($_POST['email'])):
+
+      if(empty($_POST['email']))
+        $error['email']="enter email ";
+      else
+    $user_email=$_POST['email'];
+   
+   endif;
+
+   if(isset($_POST['password'])):
+
+     if(empty($_POST['password']))
+     $error['pass']="enter password";
+    else
+     $user_password=$_POST['password']; 
+
+   endif;
+///////////////////////////////////////////////////////////////////////////////////////////للتأكد من البريد هل هو موجود ام لا
+
+$sql_test = "SELECT email_user FROM user WHERE upper(email_user) = upper(:user_email);";
+$conn = new PDO($dsn, $db_user, $db_password);
+$stet = $conn->prepare($sql_test);
+$stet->bindParam(':user_email', $user_email, PDO::PARAM_STR); ///////////////// تأكد من تحديد نوع المتغير
+$stet->execute();
+$resulte = $stet->fetchAll();
+
+$test = 1; ///////////////////////////////////////// تعيين قيمة افتراضية
+
+foreach ($resulte as $row) {
+    if (strcasecmp($row['email_user'], $user_email) == 0) {
+        $test = 0;
+        break; /////////////////////////////////////// إذا تم العثور على تطابق، قم بالخروج من الحلقة
+    }
+}
+
+
+  /////////////////////////////////////////////////////// ادخال البيانات للقاعدة 
+
+ if($test==1){
+  $massig="Enter";
+  
+  $sql_insert="INSERT INTO user(name_user,email_user,pass_user) value(:user_name,:user_email,:user_password)";
+
+   $conn= new PDO($dsn,$db_user,$db_password);
+   $stet=$conn->prepare($sql_insert);
+   $stet->bindparam(':user_name', $user_name);
+   $stet->bindparam(':user_email', $user_email);
+   $stet->bindparam(':user_password', $user_password);
+   $stet->execute();
+}
+
+else
+$massig="the Mail is available";  ///////// رسالة الخطأ
+
+
+ endif;
+?>
+
+
+
     </style>
 </head>
 <body>
@@ -152,22 +234,26 @@ button{
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+
+    <form method="POST">
         <h3>Sign Up </h3>
+        
+        <p class="error" ><?php if(isset($massig))echo $massig; ?></p>
+
         <span> <i class="fab fa-google"></i></span>
 
         <label for="name">Name</label>
-        <input type="text" placeholder="Your name" id="name">
+        <input type="text" placeholder="Your name" id="name"  name="name" required>
         <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username">
+        <input type="text" placeholder="Email" id="username" name="email" required>
 
         <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password">
+        <input type="password" placeholder="Password" id="password" name="password" required>
 
-        <button>Sign Up</button>
+        <button name="submit">Sign Up</button>
         <div class="social">
           <div class="go"><i class="fab fa-google"></i>  Google</div>
-        <a href="login.html"><div class="fb">Login</div></a>  
+        <a href="login.php"><div class="fb">Login</div></a>  
         </div>
     </form>
 </body>

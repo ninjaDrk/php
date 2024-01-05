@@ -1,3 +1,5 @@
+<?php require_once("connection/config.php");?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,6 +146,61 @@ button{
     text-decoration: none;
 }
 
+.error{
+    color:red;
+    margin-left:85px;
+}
+
+<?php 
+
+  if(isset($_POST['submit'])):
+
+   if(isset($_POST['username'])):
+
+      if(empty($_POST['username']))
+        $error['user']="enter user name ";
+      else
+    $user_name=$_POST['username'];
+   
+   endif;
+
+   if(isset($_POST['password'])):
+
+     if(empty($_POST['password']))
+     $error['pass']="enter password";
+    else
+     $user_password=$_POST['password']; 
+
+   endif;
+
+$sql_test = "SELECT email_user FROM user WHERE upper(email_user) = upper(:user_name);";
+$conn = new PDO($dsn, $db_user, $db_password);
+$stet = $conn->prepare($sql_test);
+$stet->bindParam(':user_name', $user_name, PDO::PARAM_STR); // تأكد من تحديد نوع المتغير
+$stet->execute();
+$resulte = $stet->fetchAll();
+
+$test = 1; // تعيين قيمة افتراضية
+
+foreach ($resulte as $row) {
+    if (strcasecmp($row['email_user'], $user_name) == 0) {
+        $test = 0;
+        break; // إذا تم العثور على تطابق، قم بالخروج من الحلقة
+    }
+}
+
+
+  ///////////////////////////////////////////////////////ادخال البيانات للقاعدة 
+ if($test==0)
+ $massig="You already exist";
+   
+ else
+$massig="Enter"; 
+
+endif;
+?>
+
+
 
     </style>
 </head>
@@ -152,20 +209,23 @@ button{
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <form method="POST">
        <span> <i class="fab fa-google"></i></span>
+
         <h3>Login Here</h3>
-          
+
+        <p class="error" ><?php if(isset($massig))echo $massig; ?></p>
+
         <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username">
+        <input type="text" name="username" placeholder="Email" id="username" required>
 
         <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password">
-
-        <button>Log In</button>
+        <input type="password" name="password" placeholder="Password" id="password" required>
+ 
+        <button name="submit">Log In</button>
         <div class="social">
-          <div class="go"><i class="fab fa-google"></i>  Google</div>
-       <a class="sign_up" href="sign up.html">   <div class="fb"> Sign Up</div> </a>
+          <div class="go"><i class="fab fa-google"></i>Google</div>
+       <a class="sign_up" href="signup.php">   <div class="fb"> Sign Up</div> </a>
         </div>
     </form>
 </body>
