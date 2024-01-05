@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 04 يناير 2024 الساعة 09:27
+-- Generation Time: 05 يناير 2024 الساعة 15:29
 -- إصدار الخادم: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -132,8 +132,35 @@ CREATE TABLE `user` (
   `street` varchar(30) DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL,
   `img_user` varchar(250) DEFAULT NULL,
-  `name_user` varchar(100) DEFAULT NULL
+  `name_user` varchar(100) DEFAULT NULL,
+  `id_roll` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `user`
+--
+
+INSERT INTO `user` (`id_user`, `email_user`, `pass_user`, `phone_user`, `activ_order`, `city`, `street`, `address`, `img_user`, `name_user`, `id_roll`) VALUES
+(1, 'sohil@gmail.com', '123', '777329888', 1, 'sanaa', 'hail', 'sanaa', NULL, 'suahil', 1);
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `user_roll`
+--
+
+CREATE TABLE `user_roll` (
+  `id_roll` int(11) NOT NULL,
+  `roll_name` varchar(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `user_roll`
+--
+
+INSERT INTO `user_roll` (`id_roll`, `roll_name`) VALUES
+(1, 'admin'),
+(2, 'user');
 
 --
 -- Indexes for dumped tables
@@ -191,7 +218,14 @@ ALTER TABLE `pay_type`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
-  ADD KEY `fk_activ_order` (`activ_order`);
+  ADD KEY `fk_activ_order` (`activ_order`),
+  ADD KEY `id_roll` (`id_roll`);
+
+--
+-- Indexes for table `user_roll`
+--
+ALTER TABLE `user_roll`
+  ADD PRIMARY KEY (`id_roll`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -237,7 +271,13 @@ ALTER TABLE `pay_type`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `user_roll`
+--
+ALTER TABLE `user_roll`
+  MODIFY `id_roll` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- قيود الجداول المُلقاة.
@@ -263,6 +303,12 @@ ALTER TABLE `orders`
 ALTER TABLE `order_list`
   ADD CONSTRAINT `order_list_ibfk_1` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`),
   ADD CONSTRAINT `order_list_ibfk_2` FOREIGN KEY (`id_order`) REFERENCES `orders` (`id_order`);
+
+--
+-- قيود الجداول `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_roll`) REFERENCES `user_roll` (`id_roll`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
