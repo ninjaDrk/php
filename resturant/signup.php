@@ -1,4 +1,5 @@
-<?php require_once("connection/config.php")?>
+<?php require("connection/config.php");?>
+<?php require_once("file php/sign up.php");?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    
+     <!-- fontawesome -->
+	<link rel="stylesheet" href="assets/css/all.min.css">
+
     <!--Stylesheet-->
     <style media="screen">
       *,
@@ -54,7 +59,7 @@ body{
 }
 form{
     position: relative;
-    height: 631px;
+    height: 640px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
@@ -69,9 +74,11 @@ form{
 }
 span{
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 17px;
+    right: 13px;
     padding: 5px;
+    font-size: 18px;
+    margin-right:7px;
 }
 
 form *{
@@ -90,7 +97,7 @@ form h3{
 
 label{
     display: block;
-    margin-top: 30px;
+    margin-top: 20px;
     font-size: 16px;
     font-weight: 500;
 }
@@ -149,85 +156,15 @@ button{
 
 .error{
     color:red;
-    margin-left:100px;
+    /* margin-left:100px; */
+    font-size:14px
+
 }
-
-
-<?php 
-//////////////////////////////////////// لاستقبال البيانات
-
-  if(isset($_POST['submit'])):
-
-   if(isset($_POST['name'])):
-
-      if(empty($_POST['name']))
-        $error['user']="enter user name ";
-      else
-    $user_name=$_POST['name'];
-   
-   endif;
-
-   if(isset($_POST['email'])):
-
-      if(empty($_POST['email']))
-        $error['email']="enter email ";
-      else
-    $user_email=$_POST['email'];
-   
-   endif;
-
-   if(isset($_POST['password'])):
-
-     if(empty($_POST['password']))
-     $error['pass']="enter password";
-    else
-     $user_password=$_POST['password']; 
-
-   endif;
-///////////////////////////////////////////////////////////////////////////////////////////للتأكد من البريد هل هو موجود ام لا
-
-$sql_test = "SELECT email_user FROM user WHERE upper(email_user) = upper(:user_email);";
-$conn = new PDO($dsn, $db_user, $db_password);
-$stet = $conn->prepare($sql_test);
-$stet->bindParam(':user_email', $user_email, PDO::PARAM_STR); ///////////////// تأكد من تحديد نوع المتغير
-$stet->execute();
-$resulte = $stet->fetchAll();
-
-$test = 1; ///////////////////////////////////////// تعيين قيمة افتراضية
-
-foreach ($resulte as $row) {
-    if (strcasecmp($row['email_user'], $user_email) == 0) {
-        $test = 0;
-        break; /////////////////////////////////////// إذا تم العثور على تطابق، قم بالخروج من الحلقة
-    }
-}
-
-
-  /////////////////////////////////////////////////////// ادخال البيانات للقاعدة 
-
- if($test==1){
-  $massig="Enter";
-  
-  $sql_insert="INSERT INTO user(name_user,email_user,pass_user) value(:user_name,:user_email,:user_password)";
-
-   $conn= new PDO($dsn,$db_user,$db_password);
-   $stet=$conn->prepare($sql_insert);
-   $stet->bindparam(':user_name', $user_name);
-   $stet->bindparam(':user_email', $user_email);
-   $stet->bindparam(':user_password', $user_password);
-   $stet->execute();
-}
-
-else
-$massig="the Mail is available";  ///////// رسالة الخطأ
-
-
- endif;
-?>
+</style>
 
 
 
-    </style>
+    
 </head>
 <body>
     <div class="background">
@@ -236,21 +173,29 @@ $massig="the Mail is available";  ///////// رسالة الخطأ
     </div>
 
     <form method="POST">
+    <span>  <a href="index_2.php"><i class="fas fa-window-close"></i></a></span>
+
         <h3>Sign Up </h3>
         
         <p class="error" ><?php if(isset($massig))echo $massig; ?></p>
 
-        <span> <i class="fab fa-google"></i></span>
 
         <label for="name">Name</label>
         <input type="text" placeholder="Your name" id="name"  name="name" required>
+        
         <label for="username">Username</label>
-        <input type="text" placeholder="Email" id="username" name="email" required>
+        <input type="email" placeholder="Email" id="username" name="email" required>
+        <p class="error" ><?php if(isset($massig3))echo $massig3; ?></p>
 
         <label for="password">Password</label>
         <input type="password" placeholder="Password" id="password" name="password" required>
+         <p class="error" ><?php if(isset($massig2))echo $massig2; ?></p>
 
-        <button name="submit">Sign Up</button>
+      <button name="submit" href="index_2.php">
+          Sign Up
+        </button>
+      
+        
         <div class="social">
           <div class="go"><i class="fab fa-google"></i>  Google</div>
         <a href="login.php"><div class="fb">Login</div></a>  

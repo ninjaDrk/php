@@ -1,4 +1,5 @@
-<?php require_once("connection/config.php");?>
+<?php require("connection/config.php");?>
+<?php require_once('file php/log in.php'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+    <!-- fontawesome -->
+	<link rel="stylesheet" href="assets/css/all.min.css">
+    
     <!--Stylesheet-->
     <style media="screen">
       *,
@@ -53,7 +58,7 @@ body{
 }
 form{
     position: relative;
-    height: 520px;
+    height: 555px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
@@ -68,9 +73,11 @@ form{
 }
 span{
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 17px;
+    right: 13px;
     padding: 5px;
+    font-size: 18px;
+    margin-right:7px;
 }
 
 form *{
@@ -148,61 +155,13 @@ button{
 
 .error{
     color:red;
-    margin-left:85px;
+    margin-left:75px;
+    font-size:14px
 }
-
-<?php 
-
-  if(isset($_POST['submit'])):
-
-   if(isset($_POST['username'])):
-
-      if(empty($_POST['username']))
-        $error['user']="enter user name ";
-      else
-    $user_name=$_POST['username'];
-   
-   endif;
-
-   if(isset($_POST['password'])):
-
-     if(empty($_POST['password']))
-     $error['pass']="enter password";
-    else
-     $user_password=$_POST['password']; 
-
-   endif;
-
-$sql_test = "SELECT email_user FROM user WHERE upper(email_user) = upper(:user_name);";
-$conn = new PDO($dsn, $db_user, $db_password);
-$stet = $conn->prepare($sql_test);
-$stet->bindParam(':user_name', $user_name, PDO::PARAM_STR); // تأكد من تحديد نوع المتغير
-$stet->execute();
-$resulte = $stet->fetchAll();
-
-$test = 1; // تعيين قيمة افتراضية
-
-foreach ($resulte as $row) {
-    if (strcasecmp($row['email_user'], $user_name) == 0) {
-        $test = 0;
-        break; // إذا تم العثور على تطابق، قم بالخروج من الحلقة
-    }
-}
-
-
-  ///////////////////////////////////////////////////////ادخال البيانات للقاعدة 
- if($test==0)
- $massig="You already exist";
-   
- else
-$massig="Enter"; 
-
-endif;
-?>
+</style>
 
 
 
-    </style>
 </head>
 <body>
     <div class="background">
@@ -210,19 +169,19 @@ endif;
         <div class="shape"></div>
     </div>
     <form method="POST">
-       <span> <i class="fab fa-google"></i></span>
+       <span>  <a href="index_2.php"><i class="fas fa-window-close"></i></a></span>
 
         <h3>Login Here</h3>
 
         <p class="error" ><?php if(isset($massig))echo $massig; ?></p>
 
-        <label for="username">Username</label>
-        <input type="text" name="username" placeholder="Email" id="username" required>
+        <label for="user_email">Username</label>
+        <input type="email" name="user_email" placeholder="Email" id="user_email" required>
 
         <label for="password">Password</label>
         <input type="password" name="password" placeholder="Password" id="password" required>
  
-        <button name="submit">Log In</button>
+        <a href="index_2.php"><button name="submit">Log In</button></a>
         <div class="social">
           <div class="go"><i class="fab fa-google"></i>Google</div>
        <a class="sign_up" href="signup.php">   <div class="fb"> Sign Up</div> </a>

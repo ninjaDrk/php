@@ -1,4 +1,36 @@
-<?php include("include/header.php")?>
+<?php require("connection/config.php");?>
+	<?php include("include/header.php")?>
+
+<?php require_once('connection/config.php')?>
+<?php     $conn = new PDO($dsn, $db_user, $db_password); ?>
+
+<!-- ms -->
+<!-- begin syle button -->
+<style>
+
+   
+   button{
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+button{
+  font-family: 'Poppins', sans-serif;
+  display: inline-block;
+  background-color: #F28123;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border:none;
+}
+
+   button:hover {
+  background-color: #000000;
+  color: #F28123;
+}
+</style>
+<!-- end syle button -->
+
 	<!-- search area -->
 	<div class="search-area">
 		<div class="container">
@@ -208,54 +240,6 @@
 					</div>
 				</div>
 			  </div>
-			    <!-- //////////////////////////////////////////////check/////////////////////////////////////////////////////////// -->
-
-				 <div class="check">
-
-					<input type="checkbox" id="check_id">
-					<div class="check-area">
-						<label for="check_id">
-						
-							<i class="fas fa-window-close"></i>
-
-						</label>
-					      <div class="ms-single-product">
-							<div class="single-product mt-150 mb-150">
-								<div class="container">
-									<div class="row">
-										<div class="col-md-5">
-											<div class="single-product-img">
-												<img src="assets/img/products/product-img-5.jpg" alt="">
-											</div>
-										</div>
-										<div class="col-md-7">
-											<div class="single-product-content">
-												<h3>Green apples have polyphenols</h3>
-												<p class="single-product-pricing"><span>Per Kg</span> $50</p>
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint dignissimos, rem commodi cum voluptatem quae reprehenderit repudiandae ea tempora incidunt ipsa, quisquam animi perferendis eos eum modi! Tempora, earum.</p>
-												<div class="single-product-form">
-													<form action="index.html">
-														<input type="number" placeholder="0">
-													</form>
-													<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-													<p><strong>Categories: </strong>Fruits, Organic</p>
-												</div>
-												<h4>Share:</h4>
-												<ul class="product-share">
-													<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-													<li><a href=""><i class="fab fa-twitter"></i></a></li>
-													<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
-													<li><a href=""><i class="fab fa-linkedin"></i></a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- ////////////////////////////////////////////////////////end check//////////////////////////////////////////////bigen -->
 				
 				<div class="col-lg-2 col-md-4 text-center">
 					<div class="ms">
@@ -293,6 +277,85 @@
 					</div>
 				</div>
 			</div>
+			<!-- ///////////////////////////////////////////////////ms php//////////////////////////////////////// -->
+					<?php $sql_serch="SELECT * from item;";
+						$serch_id= $conn->prepare($sql_serch);
+						$serch_id->execute();
+						$resulte=$serch_id->fetchAll();
+						
+						$id=0;
+						foreach($resulte as $row)
+						{  ?>
+
+							<div class="col-lg-2 col-md-4 text-center strawberry">
+							<div class="ms">
+							<div class="single-product-item">
+								<div class="product-image">
+									<label for="check_id"><img src="<?php echo $row['img_position'];?>" alt=""></label>
+								</div>
+								<h3>Strawberry</h3>
+								<p class="product-price"><span><?php echo $row['descr_item']; ?></span> <?php echo $row['price_item'];?>$ </p>
+                               
+
+								<a href="#?item=<?php echo $row['id_item']?>" class="cart-btn"><i class="fas fa-shopping-cart"></i>Add to Cart </a>
+								<!-- <button class="cart-btn" type="submit" name="<?php //$row['id_item']?>"><i class="fas fa-shopping-cart"></i>Add to Cart</button> -->
+								<!-- <button class="cart-btn" type="submit" name="<?php //echo $row['id_item']?>"><i class="fas fa-shopping-cart"></i><?php echo $row['id_item']?></button> -->
+				
+							</div>
+						</div>
+					</div>
+
+					<?php }?>
+
+					<!-- //////////////////////////////////////////////check/////////////////////////////////////////////////////////// -->
+
+					<div class="check">
+
+<input type="checkbox" id="check_id">
+<div class="check-area">
+	<label for="check_id">
+	
+		<i class="fas fa-window-close"></i>
+
+	</label>
+	  <div class="ms-single-product">
+		<div class="single-product mt-150 mb-150">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-5">
+						<div class="single-product-img">
+							<img src="assets/img/products/product-img-5.jpg" alt="">
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="single-product-content">
+							<h3>Green apples have polyphenols</h3>
+							<p class="single-product-pricing"><span>Per Kg</span> $50</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint dignissimos, rem commodi cum voluptatem quae reprehenderit repudiandae ea tempora incidunt ipsa, quisquam animi perferendis eos eum modi! Tempora, earum.</p>
+							<div class="single-product-form">
+								<form action="index.html">
+									<input type="number" placeholder="0">
+								</form>
+								<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+								<p><strong>Categories: </strong>Fruits, Organic</p>
+							</div>
+							<h4>Share:</h4>
+							<ul class="product-share">
+								<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href=""><i class="fab fa-twitter"></i></a></li>
+								<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
+								<li><a href=""><i class="fab fa-linkedin"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- ////////////////////////////////////////////////////////end check//////////////////////////////////////////////bigen -->
+
 		</div>
 
 			<!-- <div class="row">

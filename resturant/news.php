@@ -1,3 +1,6 @@
+<?php require("connection/config.php");?>
+	<?php include("include/header.php")?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

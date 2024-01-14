@@ -1,4 +1,5 @@
-<?php include("include/header.php")?>
+<?php require("connection/config.php");?>
+	<?php include("include/header.php")?>
 
 	<!-- search area -->
 	<div class="search-area">

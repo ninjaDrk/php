@@ -1,5 +1,7 @@
-
+	
+<?php require("connection/config.php");?>
 	<?php include("include/header.php")?>
+
 	<!-- search area -->
 	<div class="search-area">
 		<div class="container">
@@ -93,7 +95,7 @@
 						</div>
 						<div class="content">
 							<h3>Free Shipping</h3>
-							<p>When order over $75</p>
+							<p>When order over $75 <?php ?></p>
 						</div>
 					</div>
 				</div>
