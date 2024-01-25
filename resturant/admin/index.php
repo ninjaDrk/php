@@ -1,7 +1,7 @@
 <?php
-session_start();
-if(isset($_SESSION['role_id'])==1) 
-{
+// session_start();
+// if(isset($_SESSION['role_id'])==1) 
+// {
 include('../connection/config.php');?>
 <!DOCTYPE html>
 <html lang="en">
@@ -423,6 +423,7 @@ include('../connection/config.php');?>
                             <th> Phone </th>
                             <th> Status </th>
                             <th> Last date </th>
+                            <th>action</th>
                           </tr>
                         </thead>
                         <?php
@@ -432,6 +433,7 @@ include('../connection/config.php');?>
                       $stm->execute();
                       if ($stm->rowcount()){
                         foreach ($stm->fetchall() as $row){
+                          $Employee_id=$row['id_user'];
                           $img_user=$row['img_user'];
                           $name_user=$row['name_user'];
                           $phone_user=$row['phone_user'];
@@ -450,6 +452,13 @@ include('../connection/config.php');?>
                               <label class="badge badge-gradient-success"><?php if ($Status == 1) echo "Active"; else echo "Inactive";   ?></label>
                             </td>
                             <td><?php echo $date_entry ?> </td>
+                            <td>
+                                            <a href="edituser.php?action=edit&id=<?php echo $id?>" class='btn btn-success'>Edit</a>
+                                            <form action="code.php" method="POST">
+                                            <a name="user_delete" value="<?php echo $Employee_id?>" class='btn btn-danger'>Delete</a>
+                                            </form>
+                                        </td>
+
                           </tr>
                          <?php }} ?>
                         </tbody>
@@ -672,7 +681,9 @@ include('../connection/config.php');?>
     <!-- End custom js for this page -->
   </body>
 </html>
-<?php }
-else{
-  header("location:../login.php");
-}?>
+<?php
+//  }
+// else{
+//   header("location:../login.php");
+// }
+?>

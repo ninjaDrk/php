@@ -1,5 +1,5 @@
 <?php include('../include.php');
- require_once('../../../database/dbconnect.php');
+include('../../../connection/config.php');
       
 ?>
         <!-- partial -->
@@ -152,7 +152,7 @@
                     <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th>User</th>
+                          <th>item</th>
                           <th>Product</th>
                           <th>Sale</th>
                           <th>Status</th>
@@ -197,48 +197,49 @@
               <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">USERS</h4>
+                    <h4 class="card-title">Items</h4>
                     <p class="card-description"> Add class <code>.table-striped</code>
                     </p>
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th> img_user </th>
-                          <th> User name </th>
-                          <th> email_user </th>
-                          <th> pass_user </th>
-                          <th> phone_user </th>
-                          <th> role_name </th>
+                          <th> img </th>
+                          <th> id </th>
+                          <th> name </th>
+                          <th> descrpation </th>
+                          <th> old price </th>
+                          <th> new price </th>
+                          
                         </tr>
                       </thead>
                       
                       <?php
-                      $sql="SELECT id_user, email_user, pass_user, phone_user, activ_order, city, street, address, img_user, name_user, id_role, role_name FROM user u JOIN roles r on (id_role=role_id)
-                     ";
+                      $sql="SELECT * FROM item";
                       $stm=$conn->prepare($sql);
                       $stm->execute();
                       if ($stm->rowcount()){
                         foreach ($stm->fetchall() as $row){
-                          $img_user=$row['img_user'];
-                          $name_user=$row['name_user'];
-                          $email_user=$row['email_user'];
-                          $pass_user=$row['pass_user'];
-                          $phone_user=$row['phone_user'];
-                          $role_name=$row['role_name'];
+                          $file_img=$row['file_img'];
+                          $id_item=$row['id_item'];
+                          $name_item=$row['name_item'];
+                          $descr_item=$row['descr_item'];
+                          $old_price_item=$row['old_price_item'];
+                          $price_item=$row['price_item'];
                       
                       ?>
                       <tbody>
                         <tr>
                           <td class="py-1">
-                            <img src="../../upload/<?php echo $img_user ?>  " alt="image" />
+                            <img src="../../upload/<?php echo $file_img ?>  " alt="" />
                           </td>
-                          <td><?php echo $name_user ?> </td>
+                          <td><?php echo $id_item ?> </td>
+                          <td> <?php echo $name_item ?> </td>
                           <td>
-                            <?php echo $email_user ?>
+                            <?php echo $descr_item ?>
                           </td>
-                          <td> <?php echo $pass_user ?> </td>
-                          <td> <?php echo $phone_user ?> </td>
-                          <td> <?php echo $role_name ?> </td>
+                          <td> <?php echo $old_price_item ?> </td>
+                          
+                          <td> <?php echo $price_item ?> </td>
                         </tr>
                       </tbody>
                       <?php }} ?>
@@ -362,7 +363,7 @@
                         </tr>
                       </thead>
                       <?php
-                      $sql="SELECT o.id_order, date_order, total_order, descr_order, processing_order, delivery_order, address_ccostomer, id_pay, id_user, id_user_emp,l.quantity,l.total
+                      $sql="SELECT o.id_order, date_order, total_order, descr_order, processing_order, delivery_order, address_ccostomer, id_pay, id_item, id_item_emp,l.quantity,l.total
                       FROM orders o JOIN order_list l on (o.id_order=l.id_order)";
                       $stm=$conn->prepare($sql);
                       $stm->execute();

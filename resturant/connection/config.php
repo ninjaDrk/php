@@ -1,6 +1,6 @@
 <?php 
-$db_user="user";
-$db_password="user";
+$db_user="root";
+$db_password="";
 $dbname="restaurant";
 $hostname="localhost";
 

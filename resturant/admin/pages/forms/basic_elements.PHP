@@ -1,5 +1,6 @@
 <?php include('../include.php');
- require_once('../../../database/dbconnect.php');
+include('../../../connection/config.php');
+      
 ?>
         <!-- partial -->
         <div class="main-panel">
@@ -111,7 +112,7 @@
                if(empty($errors))
                { 
                   
-               $sql="INSERT INTO user ( `email_user`, `pass_user`, `phone_user`, `img_user`, `name_user`, `role_id`) VALUES (? ,? ,?,? ,?,?);";
+               $sql="INSERT INTO user (name_user, email_user, pass_user,  role_id, img_user, phone_user) VALUES (? ,? ,?,? ,?,?);";
                                 $stm =$conn->prepare($sql);
                                 $stm->execute(array($name ,$email ,$pass ,$role ,$img,$phone));
                                 if($stm->rowcount())
@@ -137,6 +138,7 @@
                       <div class="form-group">
                         <label for="exampleInputName1">Name</label>
                         <input type="text" name="name" class="form-control" id="exampleInputName1" placeholder="Name">
+                        <i><?php if(isset($errors['name'])) echo $errors['name']  ?></i>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail3">Email address</label>
